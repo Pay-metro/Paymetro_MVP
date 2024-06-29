@@ -1,0 +1,14 @@
+{
+  "name": "paymetro-mvp",
+  "version": "1.0.0",
+  "description": "backend api written in a monolithic design for paymetro mvp.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "PayMetro"
+  ],
+  "author": "Beau Iyere, Martin Obe, Joey",
+  "license": "ISC"
+}
