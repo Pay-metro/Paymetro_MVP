@@ -4,7 +4,6 @@ import cors from "cors";
 import path from "path";
 import YAML from "yamljs";
 import dotenv from "dotenv";
-import session from "express-session";
 import rateLimit from "express-rate-limit";
 import swaggerUi from "swagger-ui-express";
 import cookieParser from "cookie-parser";
@@ -77,6 +76,7 @@ export class App {
        prefix: "sessionStore",
     });*/
 
+    /*
     this.app.use(
       session({
         // store: RedisStore,
@@ -86,6 +86,7 @@ export class App {
         cookie: { secure: false, httpOnly: true, maxAge: 20 * 60 * 1000 },
       })
     );
+    */
     this.app.use(this.limiter);
 
       // Serve the Swagger UI
