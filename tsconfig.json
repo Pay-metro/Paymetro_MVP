@@ -29,10 +29,10 @@
       "@/routes/*": ["./src/api/routes/*"],
       "@/services/*": ["./src/api/services/*"],
       "@/configs/*": ["./src/api/helpers/configs/*"],
-      "@/DTO/*": ["./src/api/helpers/DTO/*"],
+      "@/schemas/*": ["./src/api/helpers/schemas/*"],
       "@/enum/*": ["./src/api/helpers/enum/*"],
       "@/interfaces/*": ["./src/api/helpers/interfaces/*"],
-      "@/lib/*": ["./src/api/helpers/lib/*"],
+      "@/decorators/*": ["./src/api/helpers/decorators/*"],
       "@/middlewares/*": ["./src/api/helpers/middlewares/*"],
       "@/utils/*": ["./src/api/helpers/utils/*"]
     }
