@@ -24,17 +24,18 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/api/*": ["./src/api/*"],
-      "@/helpers/*": ["./src/api/helpers/*"],
-      "@/controllers/*": ["./src/api/controllers/*"],
+      "@/db/*": ["./src/api/db/*"],
       "@/routes/*": ["./src/api/routes/*"],
+      "@/helpers/*": ["./src/api/helpers/*"],
       "@/services/*": ["./src/api/services/*"],
-      "@/configs/*": ["./src/api/helpers/config/*"],
-      "@/schemas/*": ["./src/api/helpers/schemas/*"],
       "@/enum/*": ["./src/api/helpers/enum/*"],
+      "@/utils/*": ["./src/api/helpers/utils/*"],
+      "@/config/*": ["./src/api/helpers/config/*"],
+      "@/schemas/*": ["./src/api/helpers/schemas/*"],
+      "@/controllers/*": ["./src/api/controllers/*"],
       "@/interfaces/*": ["./src/api/helpers/interfaces/*"],
       "@/decorators/*": ["./src/api/helpers/decorators/*"],
-      "@/middlewares/*": ["./src/api/helpers/middlewares/*"],
-      "@/utils/*": ["./src/api/helpers/utils/*"]
+      "@/middlewares/*": ["./src/api/helpers/middlewares/*"]
     }
   },
   "ts-node": {
