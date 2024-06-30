@@ -12,10 +12,11 @@ import statusCode from "http-status-codes";
 import express, { Application, Response } from "express";
 
 import "@/utils/logging";
-import { SERVER_PORT } from "@/configs/config";
+import { SERVER_PORT } from "@/config/config";
+import { db_init } from "@/config/db.config";
+import __404_err_page from "@/middlewares/__404_notfound";
 import errorHandlerMiddleware from "@/middlewares/errHandler";
 import { logging_middleware } from "@/middlewares/loggingmiddleware";
-import __404_err_page from "@/middlewares/__404_notfound";
 
 dotenv.config();
 
@@ -44,9 +45,10 @@ export class App {
 
   async listen(): Promise<void> {
     try {
-      this.app.listen(this.port);
+      await db_init();
       logging.log("----------------------------------------");
       logging.log("Initializing API");
+      this.app.listen(this.port);
       logging.log("----------------------------------------");
       logging.log(
         `Documentation with swagger available at when project is done`
