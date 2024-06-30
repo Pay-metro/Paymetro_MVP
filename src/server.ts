@@ -5,6 +5,6 @@ import { App } from "@/app";
   try {
     app.listen();
   } catch (error: any) {
-    console.log(error.message);
+    logging.error(error.message);
   }
 })();

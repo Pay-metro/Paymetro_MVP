@@ -8,16 +8,18 @@ import rateLimit from "express-rate-limit";
 import swaggerUi from "swagger-ui-express";
 import cookieParser from "cookie-parser";
 import helmet, { HelmetOptions } from "helmet";
-import express, { Application, Express, Response } from "express";
+import statusCode from "http-status-codes";
+import express, { Application, Response } from "express";
 
-/*
-import __404_err_page from "@/middlewares/notFound";
-import { logger } from "@/utils/logger";
+import "@/utils/logging";
+import { SERVER_PORT } from "@/config/config";
+import { db_init } from "@/config/db.config";
+import __404_err_page from "@/middlewares/__404_notfound";
 import errorHandlerMiddleware from "@/middlewares/errHandler";
-*/
+import { logging_middleware } from "@/middlewares/loggingmiddleware";
 
 dotenv.config();
-// remember to change all console.log() calls to logger.log() later
+
 export class App {
   private readonly app: Application;
   private readonly APPLICATION_RUNNING = "Application is running on: ";
@@ -27,9 +29,7 @@ export class App {
     referrerPolicy: { policy: "same-origin" }, // Referrer-Policy header
     hsts: { maxAge: 15552000, includeSubDomains: true, preload: true }, // Strict-Transport-Security (HSTS) header for HTTPS enforcement
   };
-  constructor(
-    private readonly port: string | number = process.env.PORT || 3000
-  ) {
+  constructor(private readonly port: string | number = SERVER_PORT) {
     this.app = express();
     this.middleware();
     this.routes();
@@ -45,18 +45,29 @@ export class App {
 
   async listen(): Promise<void> {
     try {
+      await db_init();
+      logging.log("----------------------------------------");
+      logging.log("Initializing API");
       this.app.listen(this.port);
-      console.info(`Documentation available at when project is done`);
-      console.info(`${this.APPLICATION_RUNNING} ${ip.address()}:${this.port}`);
+      logging.log("----------------------------------------");
+      logging.log(
+        `Documentation with swagger available at when project is done`
+      );
+      logging.log("----------------------------------------");
+      logging.log(`${this.APPLICATION_RUNNING} ${ip.address()}:${this.port}`);
+      logging.log("----------------------------------------");
     } catch (error) {
-      console.error("Database connection error: " + error);
+      logging.error("Database connection error: " + error);
     }
   }
 
   // loading swagger documentation from the pasth
-//   private swaggerDoc = YAML.load(path.join(__dirname, "./../swagger.yaml"));
+  //   private swaggerDoc = YAML.load(path.join(__dirname, "./../swagger.yaml"));
 
   private middleware(): void {
+    logging.log("----------------------------------------");
+    logging.log("Logging & Configuration");
+    logging.log("----------------------------------------");
     this.app.set("trust proxy", 10);
     this.app.use(cors({ origin: "*", credentials: true }));
     this.app.use(express.json());
@@ -88,9 +99,10 @@ export class App {
     );
     */
     this.app.use(this.limiter);
+    this.app.use(logging_middleware);
 
-      // Serve the Swagger UI
-      /*
+    // Serve the Swagger UI
+    /*
     this.app.use(
       "/api-docs",
       swaggerUi.serve,
@@ -101,10 +113,15 @@ export class App {
 
   // Routing for the application
   private routes() {
+    logging.log("----------------------------------------");
+    logging.log("Define Controller Routing");
+    logging.log("----------------------------------------");
     this.app.get("/", (_, res: Response) => {
-      res.send(
-        '<h1>Builder Authentication API Documentation</h1><a href="/api-docs">Documentation</a>'
+      /*res.send(
+        '<h1>PayMetro API Documentation</h1><a href="/api-docs">Documentation</a>'
       );
+      */
+      res.json({ message: `PayMetro API Index route`, status: statusCode.OK });
     });
 
     // Routing goes here for the application
@@ -113,8 +130,8 @@ export class App {
 
     // this.app.use("/builders", builderRoute);
 
-    // this.app.all("*", __404_err_page);
+    this.app.all("*", __404_err_page);
 
-    // this.app.use(errorHandlerMiddleware);
+    this.app.use(errorHandlerMiddleware);
   }
 }
