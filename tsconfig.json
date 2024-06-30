@@ -28,7 +28,7 @@
       "@/controllers/*": ["./src/api/controllers/*"],
       "@/routes/*": ["./src/api/routes/*"],
       "@/services/*": ["./src/api/services/*"],
-      "@/configs/*": ["./src/api/helpers/configs/*"],
+      "@/configs/*": ["./src/api/helpers/config/*"],
       "@/schemas/*": ["./src/api/helpers/schemas/*"],
       "@/enum/*": ["./src/api/helpers/enum/*"],
       "@/interfaces/*": ["./src/api/helpers/interfaces/*"],
